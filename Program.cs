@@ -93,7 +93,69 @@ void Task56(){
 
 void Task58(){
     // Напишите программу, которая заполнит спирально массив 4 на 4.
+    // 01 02 03 04
+    // 12 13 14 05
+    // 11 16 15 06
+    // 10 09 08 07
 
+    // 01 02 03 04 05
+    // 16 17 18 19 06
+    // 15 24 25 20 07
+    // 14 23 22 21 08
+    // 13 12 11 10 09
+
+    int q = 4;
+
+    int row = q;
+    int col = q;
+
+    int[,] matrix = new int[row,col];
+
+
+    int num = 1;
+
+    int x = 0;
+    int y = 0;
+
+
+
+    while(num < matrix.Length){
+        matrix[y, x] = num;
+        
+        if(x < col - 1)
+            x++;
+        else if((x == col - 1) && (y < row - 1))
+            y++;
+        else if((x == col - 1) && (y == row - 1))
+            x--;
+        else if((x < col - 1) && (y == row - 1) && (matrix[x+1,y] > 0))
+            x--;
+
+        num++;
+    }
+
+        // for(x = 0; x < col; x++){
+        //     matrix[0, x] = num;
+        //     num++;
+        // }
+        // for(y = 1; y < row; y++){
+        //     matrix[y, x - 1] = num;
+        //     num++;
+        // }
+        // for(x = x - 2; x >= 0 ; x--){
+        //     matrix[y - 1, x] = num;
+        //     num++;
+        // }
+        // for(y = row - 2; y > 0; y--){
+        //     matrix[y, x + 1] = num;
+        //     num++;
+        // }
+
+
+    Console.WriteLine(x);
+    Console.WriteLine(y);
+
+    PrintDimArray(matrix);
 }
 
 // метод для вывода меню выбора задач
@@ -118,4 +180,4 @@ void Menu() {
     }
 }
 
-Task56();
+Task58();
