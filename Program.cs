@@ -104,63 +104,37 @@ void Task58(){
     // 14 23 22 21 08
     // 13 12 11 10 09
 
-    int q = 4;
+    int rows = 4; 
+    int cols = 4;
 
-    int row = q;
-    int col = q;
+    int[,] matrix = new int[rows, cols];
 
-    int[,] matrix = new int[row,col];
+    int i = 0;
+    int j = 0;
+    int bias_i = 0; 
+    int bias_j = 1;
+    int turns = 0;
+    int steps = cols;
 
+    for(int num = 0; num < matrix.Length; num++){
+        matrix[i, j] = num + 1;
+        steps--;
 
-    int num = 1;
-
-    int x = 0;
-    int y = 0;
-
-
-
-    while(num < matrix.Length){
-        matrix[y, x] = num;
-        
-        if((x < col - 1)  && (matrix[y,x+1] == 0)){
-            x++;
-            Console.Write($" 1 [{y},{x}]");
+        if (steps == 0)
+        {
+            if(turns % 2 == 0)
+                steps = rows - 1 - turns / 2;
+            else steps = cols - 1 - turns / 2;
+            
+            turns++;
+            
+            int temp = -bias_i;
+            bias_i = bias_j;
+            bias_j = temp;
         }
-        else if((x == col - 1) && (y < row - 1) && (matrix[y+1,x] == 0)){
-            y++;
-            Console.Write($" 2 [{y},{x}]");
-        }
-        else if((x <= col - 1) && (y == row - 1)  && (x > 0)){
-            x--;
-            Console.Write($" 3 [{y},{x}]");
-        }
-        else if( (y <= row - 2) && (matrix[y-1,x] == 0) ){
-            y--;
-            Console.Write($" 4 [{y},{x}]");
-        }
-
-        num++;
+        i += bias_i;
+        j += bias_j;
     }
-
-        // for(x = 0; x < col; x++){
-        //     matrix[0, x] = num;
-        //     num++;
-        // }
-        // for(y = 1; y < row; y++){
-        //     matrix[y, x - 1] = num;
-        //     num++;
-        // }
-        // for(x = x - 2; x >= 0 ; x--){
-        //     matrix[y - 1, x] = num;
-        //     num++;
-        // }
-        // for(y = row - 2; y > 0; y--){
-        //     matrix[y, x + 1] = num;
-        //     num++;
-        // }
-
-
-    Console.WriteLine($" end [{y},{x}]");
 
     PrintDimArray(matrix);
 }
