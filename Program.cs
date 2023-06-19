@@ -122,14 +122,22 @@ void Task58(){
     while(num < matrix.Length){
         matrix[y, x] = num;
         
-        if(x < col - 1)
+        if((x < col - 1)  && (matrix[y,x+1] == 0)){
             x++;
-        else if((x == col - 1) && (y < row - 1))
+            Console.Write($" 1 [{y},{x}]");
+        }
+        else if((x == col - 1) && (y < row - 1) && (matrix[y+1,x] == 0)){
             y++;
-        else if((x == col - 1) && (y == row - 1))
+            Console.Write($" 2 [{y},{x}]");
+        }
+        else if((x <= col - 1) && (y == row - 1)  && (x > 0)){
             x--;
-        else if((x < col - 1) && (y == row - 1) && (matrix[x+1,y] > 0))
-            x--;
+            Console.Write($" 3 [{y},{x}]");
+        }
+        else if( (y <= row - 2) && (matrix[y-1,x] == 0) ){
+            y--;
+            Console.Write($" 4 [{y},{x}]");
+        }
 
         num++;
     }
@@ -152,8 +160,7 @@ void Task58(){
         // }
 
 
-    Console.WriteLine(x);
-    Console.WriteLine(y);
+    Console.WriteLine($" end [{y},{x}]");
 
     PrintDimArray(matrix);
 }
